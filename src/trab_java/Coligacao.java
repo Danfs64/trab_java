@@ -1,12 +1,12 @@
 package trab_java;
-import java.util.LinkedList;
+import java.util.HashSet;
 
 
 public class Coligacao {
-	LinkedList<Partido> col;
+	HashSet<Partido> col;
 	int votos_totais_col;
 	
-	public Coligacao(String[] pNomes, LinkedList<Partido> partidos) {
+	public Coligacao(String[] pNomes, HashSet<Partido> partidos) {
 		for(int i = 0; i < pNomes.length; i++) {
 			for(Partido x: partidos) {
 				if(x.getNome().equals(pNomes[i])) {

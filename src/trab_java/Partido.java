@@ -1,15 +1,15 @@
 package trab_java;
-import java.util.LinkedList;
+import java.util.HashSet;
 
 public class Partido {
 	String nome;
 	int total_votos;
-	LinkedList<Candidato> candidatos;
+	HashSet<Candidato> candidatos;
 	
 	public Partido(String nome) {
 		this.nome = nome;
 		this.total_votos = 0;
-		this.candidatos = new LinkedList<Candidato>();
+		this.candidatos = new HashSet<Candidato>();
 	}
 	
 	public String getNome() {
