@@ -3,7 +3,7 @@ package trab_java;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Partido {
+public class Partido implements Comparable<Partido> {
 	//Attributes
 	String nome;
 	int total_votos;
@@ -61,5 +61,10 @@ public class Partido {
 		else txt += "candidato eleito";
 		
 		return txt;
+	}
+
+	@Override
+	public int compareTo(Partido x) {
+		return x.getVotos() - this.getVotos();
 	}
 }

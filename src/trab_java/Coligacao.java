@@ -1,15 +1,19 @@
 package trab_java;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
-public class Coligacao {
+public class Coligacao implements Comparable<Coligacao> {
 	//Attributes
 	Set<Partido> col = new HashSet<Partido>();
 	int votos_totais = 0;
+	String nome;
 	
 	//Constructor
-	public Coligacao(String[] pNomes, Set<Partido> partidos) {
+	public Coligacao(String[] pNomes, LinkedList<Partido> partidos) {
+		this.nome = String.join(" / ",pNomes);
+		
 		for(int i = 0; i < pNomes.length; i++) {
 			boolean ok = false;
 			for(Partido x: partidos) {
@@ -32,6 +36,10 @@ public class Coligacao {
 	//Getters
 	public int getVotos() {
 		return votos_totais;
+	}
+	
+	public String getNome() {
+		return this.nome;
 	}
 	
 	//Methods
@@ -57,5 +65,10 @@ public class Coligacao {
 		}
 		
 		return txt;
+	}
+	
+	@Override
+	public int compareTo(Coligacao x) {
+		return x.getVotos() - this.getVotos();
 	}
 }

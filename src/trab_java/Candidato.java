@@ -1,6 +1,6 @@
 package trab_java;
 
-public class Candidato {
+public class Candidato implements Comparable<Candidato> {
 	//Attributes
 	String nome;
 	int numero;
@@ -47,14 +47,22 @@ public class Candidato {
 	}
 	
 	//Methods
+	
 	@Override
 	public String toString() {
 		String txt = this.nome;
 		
-		txt += "(" + this.partido.getNome() + ", " + this.votos + "votos)";
+		txt += " (" + this.partido.getNome() + ", " + this.votos + " votos)";
 		
-		if(this.partido.hasColigacao()) txt += " - " + this.col;
+		if(this.getPartido().hasColigacao()) {
+			txt += "- Coligação: " + this.getPartido().getColigacao().getNome();
+		}
 		
 		return txt;
+	}
+
+	@Override
+	public int compareTo(Candidato x) {
+		return x.getVotos() - this.getVotos();
 	}
 }
