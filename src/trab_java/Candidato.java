@@ -41,4 +41,20 @@ public class Candidato {
 	public Coligacao getColigacao() {
 		return this.col;
 	}
+	
+	public boolean isEleito() {
+		return this.eleito;
+	}
+	
+	//Methods
+	@Override
+	public String toString() {
+		String txt = this.nome;
+		
+		txt += "(" + this.partido.getNome() + ", " + this.votos + "votos)";
+		
+		if(this.partido.hasColigacao()) txt += " - " + this.col;
+		
+		return txt;
+	}
 }

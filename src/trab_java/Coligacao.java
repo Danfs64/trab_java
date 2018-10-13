@@ -1,10 +1,11 @@
 package trab_java;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Coligacao {
 	//Attributes
-	Set<Partido> col;
+	Set<Partido> col = new HashSet<Partido>();
 	int votos_totais = 0;
 	
 	//Constructor
@@ -45,9 +46,14 @@ public class Coligacao {
 	@Override
 	public String toString() {
 		String txt = "Coligação: ";
+		int cont = 0;
 		
 		for(Partido x : col) {
-			txt += x.getNome()+" / ";
+			txt += x.getNome();
+			if(cont > col.size()) {
+				txt +=" / ";
+			}
+			
 		}
 		
 		return txt;

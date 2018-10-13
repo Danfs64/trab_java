@@ -7,6 +7,7 @@ public class Partido {
 	//Attributes
 	String nome;
 	int total_votos;
+	int eleitos;
 	Set<Candidato> candidatos;
 	Coligacao col = null;
 	
@@ -14,6 +15,7 @@ public class Partido {
 	public Partido(String nome) {
 		this.nome = nome;
 		this.total_votos = 0;
+		this.eleitos = 0;
 		this.candidatos = new HashSet<Candidato>();
 	}
 	
@@ -40,10 +42,24 @@ public class Partido {
 		this.candidatos.add(x);
 		this.total_votos += x.getVotos();
 		
+		if (x.isEleito()) this.eleitos++;
+		
 		if (this.hasColigacao()) this.col.addVotos(x.getVotos());
 	}
 
 	public boolean hasColigacao() {
 		return col!=null;
+	}
+	
+	@Override
+	public String toString() {
+		String txt = nome;
+		
+		txt += ", " + this.total_votos + " votos, " + this.eleitos;
+		
+		if (this.eleitos > 1) txt += "candidatos eleitos";
+		else txt += "candidato eleito";
+		
+		return txt;
 	}
 }
