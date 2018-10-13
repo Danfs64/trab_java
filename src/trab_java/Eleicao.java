@@ -6,19 +6,16 @@ import java.io.IOException;
 import java.util.HashSet;
 
 public class Eleicao {
-	HashSet<Candidato> candidatos;
-	HashSet<Partido> partidos;
-	HashSet<Coligacao> coligacoes;
-	
-	public void main(String[] args) {
+
+	public static void main(String[] args) {
 		System.out.println(args[0]);
 		try {
 			//Leitor do arquivo
 			BufferedReader arq = new BufferedReader(new FileReader(args[0]));
 			
-			this.candidatos = new HashSet<Candidato>();
-			this.partidos = new HashSet<Partido>();
-			this.coligacoes = new HashSet<Coligacao>();
+			HashSet<Candidato> candidatos = new HashSet<Candidato>();
+			HashSet<Partido> partidos = new HashSet<Partido>();
+			HashSet<Coligacao> coligacoes = new HashSet<Coligacao>();
 			
 			for(String linha = arq.readLine(); linha != null; linha = arq.readLine()) {
 				//Strings obtidas a partir da separação da linha
@@ -30,31 +27,22 @@ public class Eleicao {
 				String nome = dados[2];
 				
 				//Partido, coligação e candidato sendo criados/adicionados 
-				Partido p;
+				Partido p = null;
 				for(Partido aux : partidos) {
-					if(aux.getNome().equal(dados[3].split("-")[0])) {
+					if(aux.getNome().equals(dados[3].split("-")[0])) {
 						p = aux;
 						break;
 					}
 				}
-				if(p == null) p = = new Partido(dados[3].split("-")[0]);
+				if(p == null) p = new Partido(dados[3].split("-")[0]);
 				partidos.add(p);
 				
-				Coligacao col = new Coligacao(dados[3].split("-")[1].split(" / "));
+				Coligacao col = new Coligacao(dados[3].split("-")[1].split(" / "),partidos);
 				coligacoes.add(col);
 				
 				Candidato candidato = new Candidato(nome, numero, votos, p, eleito);
 				candidatos.add(candidato);
 				p.addCandidato(candidato);
-				
-				
-				
-				
-				
-				
-				
-				
-				
 			}
 		}
 		catch(IOException e) {
