@@ -13,18 +13,23 @@ public class Eleicao {
 	public void main(String[] args) {
 		System.out.println(args[0]);
 		try {
+			//Leitor do arquivo
 			BufferedReader arq = new BufferedReader(new FileReader(args[0]));
+			
 			this.candidatos = new HashSet<Candidato>();
 			this.partidos = new HashSet<Partido>();
 			this.coligacoes = new HashSet<Coligacao>();
 			
 			for(String linha = arq.readLine(); linha != null; linha = arq.readLine()) {
+				//Strings obtidas a partir da separação da linha
 				String[] dados = linha.split(";");
 				
+				//Dados do candidato
 				boolean eleito = dados[0].contains("*");
 				int numero = Integer.valueOf(dados[1]), votos = Integer.valueOf(dados[5]);
 				String nome = dados[2];
 				
+				//Partido, coligação e candidato criados/adicionados 
 				Partido p = new Partido(dados[3].split("-")[0]);
 				partidos.add(p);
 				
