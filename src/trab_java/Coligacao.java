@@ -10,12 +10,20 @@ public class Coligacao {
 	//Constructor
 	public Coligacao(String[] pNomes, Set<Partido> partidos) {
 		for(int i = 0; i < pNomes.length; i++) {
+			boolean ok = false;
 			for(Partido x: partidos) {
 				if(x.getNome().equals(pNomes[i])) {
 					addPartido(x);
 					x.setColigacao(this);
+					ok = true;
 					break;
 				}
+			}
+			
+			if(!ok) {
+				Partido novo = new Partido(pNomes[i]);
+				addPartido(novo);
+				partidos.add(novo);
 			}
 		}
 	}

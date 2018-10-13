@@ -7,14 +7,16 @@ public class Candidato {
 	int votos;
 	Partido partido;
 	Coligacao col = null;
+	boolean eleito;
 	
 	//Constructor
-	public Candidato(String nome, int numero, int votos, Partido partido) {
+	public Candidato(String nome, int numero, int votos, Partido partido, boolean eleito) {
 		this.nome = nome;
 		this.numero = numero;
 		this.votos = votos;
 		this.partido = partido;
 		this.col = partido.getColigacao();
+		this.eleito = eleito;
 		
 		partido.addCandidato(this);
 	}
