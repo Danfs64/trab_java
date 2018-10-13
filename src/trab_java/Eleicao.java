@@ -29,8 +29,15 @@ public class Eleicao {
 				int numero = Integer.valueOf(dados[1]), votos = Integer.valueOf(dados[5]);
 				String nome = dados[2];
 				
-				//Partido, coligação e candidato criados/adicionados 
-				Partido p = new Partido(dados[3].split("-")[0]);
+				//Partido, coligação e candidato sendo criados/adicionados 
+				Partido p;
+				for(Partido aux : partidos) {
+					if(aux.getNome().equal(dados[3].split("-")[0])) {
+						p = aux;
+						break;
+					}
+				}
+				if(p == null) p = = new Partido(dados[3].split("-")[0]);
 				partidos.add(p);
 				
 				Coligacao col = new Coligacao(dados[3].split("-")[1].split(" / "));
@@ -38,6 +45,7 @@ public class Eleicao {
 				
 				Candidato candidato = new Candidato(nome, numero, votos, p, eleito);
 				candidatos.add(candidato);
+				p.addCandidato(candidato);
 				
 				
 				
