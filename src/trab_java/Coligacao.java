@@ -16,7 +16,7 @@ public class Coligacao implements Comparable<Coligacao> {
 			pNomes = pNomes.substring(1);
 		}
 		this.nome = pNomes;
-		String[] aux = pNomes.split(" / ");
+		String[] aux = pNomes.split("/");
 		
 		for(int i = 0; i < aux.length; i++) {
 			boolean ok = false;
