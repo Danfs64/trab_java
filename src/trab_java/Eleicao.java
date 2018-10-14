@@ -2,11 +2,8 @@ package trab_java;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.LinkedList;
 
@@ -75,10 +72,6 @@ public class Eleicao {
 			//System.out.println(partidos);
 			arq.close();
 			
-			//Escrevi o numero de vagas
-			System.out.println("Numero de vagas: "+ vagas);
-			System.out.println();
-			
 			//Ordenaçao dos candidatos, partidos e coligacoes
 			Collections.sort(candidatos);
 			Collections.sort(partidos);
@@ -121,6 +114,9 @@ public class Eleicao {
 				part += aux++ + " - " + x + "\n";
 			}
 			
+			//Saida
+			System.out.println("Numero de vagas: "+ vagas);
+			System.out.println();
 			System.out.println(eleitos);
 			System.out.println(mais_votados);
 			System.out.println(quase_eleitos);
@@ -131,7 +127,6 @@ public class Eleicao {
 		}
 		catch(IOException e) {
 			e.printStackTrace();
-			System.out.println("DEU MERDA");
 		}
 	}
 }
