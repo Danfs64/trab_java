@@ -12,6 +12,9 @@ public class Coligacao implements Comparable<Coligacao> {
 	
 	//Constructor
 	public Coligacao(String pNomes, LinkedList<Partido> partidos) {
+		if(Character.isWhitespace(pNomes.charAt(0))) {
+			pNomes = pNomes.substring(1);
+		}
 		this.nome = pNomes;
 		String[] aux = pNomes.split(" / ");
 		
@@ -31,7 +34,6 @@ public class Coligacao implements Comparable<Coligacao> {
 					aux[i] = aux[i].substring(1);
 				}
 				Partido novo = new Partido(aux[i]);
-				System.out.println(novo.getNome());
 				addPartido(novo);
 				partidos.add(novo);
 			}
@@ -55,19 +57,24 @@ public class Coligacao implements Comparable<Coligacao> {
 	public void addPartido(Partido p) {
 		this.col.add(p);
 	}
+	
+	public int nEleitos() {
+		int aux = 0;
+		for(Partido x : this.col) {
+			aux += x.getVotos();
+		}
+		
+		return aux;
+	}
 
 	@Override
 	public String toString() {
-		String txt = "ColigaÃ§Ã£o: ";
-		int cont = 0;
+		String txt = "Coligação: ";
 		
-		for(Partido x : col) {
-			txt += x.getNome();
-			if(cont > col.size()) {
-				txt +=" / ";
-			}
-			
-		}
+		txt += this.getNome() + ", " + this.getVotos() + " votos, " + this.nEleitos();   
+		
+		if (this.nEleitos() > 1) txt += " candidatos eleitos";
+		else txt += " candidato eleito";
 		
 		return txt;
 	}

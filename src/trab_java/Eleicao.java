@@ -11,9 +11,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 
 public class Eleicao {
-
+	
 	public static void main(String[] args) {
-		System.out.println(args[0]);
 		try {
 			//Leitor do arquivo
 			BufferedReader arq = new BufferedReader(new InputStreamReader(new FileInputStream(args[0]), "UTF-8"));
@@ -52,6 +51,7 @@ public class Eleicao {
 				
 				if(dados[3].split("-").length > 1) {
 					Coligacao col = null;
+			
 					for(Coligacao aux : coligacoes) {
 						if(aux.getNome().replaceAll(" ", "").equals(dados[3].split("-")[1].replaceAll(" ", ""))) {
 							col = aux;
@@ -62,6 +62,19 @@ public class Eleicao {
 						col = new Coligacao(dados[3].split("-")[1],partidos);
 						coligacoes.add(col);
 					}
+				}else {
+					Coligacao col = null;
+					for(Coligacao aux : coligacoes) {
+						if(aux.getNome().replaceAll(" ", "").equals(dados[3].replaceAll(" ", ""))) {
+							col = aux;
+							break;
+						}
+					}
+					if(col == null) {
+						col = new Coligacao(dados[3],partidos);
+						coligacoes.add(col);
+					}
+							
 				}
 				
 				Candidato candidato = new Candidato(nome, numero, votos, p, eleito);
@@ -73,23 +86,22 @@ public class Eleicao {
 			//System.out.println(partidos);
 			arq.close();
 			
-			//Abrindo arquivo de relatorio
-			PrintWriter relatorio = new PrintWriter (new OutputStreamWriter (new FileOutputStream ("relatorio.txt"), "UTF-8"));
-			
 			//Escrevi o numero de vagas
-			relatorio.println("Numero de vagas: "+ vagas);
-			relatorio.println();
+			System.out.println("Numero de vagas: "+ vagas);
+			System.out.println();
 			
 			//Ordenaçao dos candidatos, partidos e coligacoes
 			Collections.sort(candidatos);
 			Collections.sort(partidos);
 			Collections.sort(coligacoes);
 			
-			String eleitos, mais_votados, quase_eleitos, eleitos_prop;
+			String eleitos, mais_votados, quase_eleitos, eleitos_prop, colig, part;
 			eleitos = "Vereadores eleitos:\n";
 			mais_votados = "Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas\n";
 			quase_eleitos = "Teriam sido eleitos se a votação fosse majoritária, e não foram eleitos:(com sua posição no ranking de mais votados)\n";
 			eleitos_prop = "Eleitos, que se beneficiaram do sistema proporcional:(com sua posição no ranking de mais votados)\n";
+			colig = "Votação (nominal) das coligações e número de candidatos eleitos:\n";
+			part = "Votação (nominal) dos partidos e número de candidatos eleitos:\n";
 			
 			int aux_eleitos = 1, aux_mVotados = 1, aux_quase = 1, aux_prop = 1;
 			//Como o print abaixo já diz são os vereadores eleitos
@@ -109,36 +121,28 @@ public class Eleicao {
 				}
 				aux_prop++;
 			}
-//			System.out.println(eleitos);
-//			System.out.println(mais_votados);
-//			System.out.println(quase_eleitos);
-//			System.out.println(eleitos_prop);
-			System.out.println(coligacoes.size() + "  " + partidos.size());
 			
 			int aux = 1;
-			relatorio.println();
-			relatorio.println("Votação (nominal) das coligações e número de candidatos eleitos:");
-			aux = 1;
 			for(Coligacao x : coligacoes) {
-				relatorio.println(aux++ + " - " + x);
+				colig += aux++ + " - " + x + "\n";
 			}
 			
-			relatorio.println();
-			relatorio.println("Votação (nominal) dos partidos e número de candidatos eleitos:");
 			aux = 1;
 			for(Partido x : partidos) {
-				relatorio.println(aux++ + " - " + x);
+				part += aux++ + " - " + x + "\n";
 			}
-		
-			relatorio.close();
+			
+			System.out.println(eleitos);
+			System.out.println(mais_votados);
+			System.out.println(quase_eleitos);
+			System.out.println(eleitos_prop);
+			System.out.println(colig);
+			System.out.println(part);
 			
 		}
 		catch(IOException e) {
 			e.printStackTrace();
 			System.out.println("DEU MERDA");
-		}
-		finally {
-			System.out.println("TERMINOU!");
 		}
 	}
 }

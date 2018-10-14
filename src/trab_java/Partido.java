@@ -56,12 +56,12 @@ public class Partido implements Comparable<Partido> {
 	
 	@Override
 	public String toString() {
-		String txt = nome;
+		String txt = this.nome;
 		
 		txt += ", " + this.total_votos + " votos, " + this.eleitos;
 		
-		if (this.eleitos > 1) txt += "candidatos eleitos";
-		else txt += "candidato eleito";
+		if (this.eleitos > 1) txt += " candidatos eleitos";
+		else txt += " candidato eleito";
 		
 		return txt;
 	}
