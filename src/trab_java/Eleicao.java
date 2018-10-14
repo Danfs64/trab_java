@@ -39,7 +39,8 @@ public class Eleicao {
 				//Partido, coligacao e candidato sendo criados/adicionados 
 				Partido p = null;
 				for(Partido aux : partidos) {
-					if(aux.getNome().equals(dados[3].split("-")[0])) {
+					if(aux.getNome().replaceAll(" ", "").equals(dados[3].split("-")[0].replaceAll(" ", ""))) {
+						//System.out.println(aux.getNome().replaceAll(" ", "") + " " + dados[3].split("-")[0].replaceAll(" ", ""));
 						p = aux;
 						break;
 					}
@@ -50,12 +51,12 @@ public class Eleicao {
 				if(dados[3].split("-").length > 1) {
 				Coligacao col = null;
 				for(Coligacao aux : coligacoes) {
-					if(aux.getNome().equals(dados[3].split("-")[1])) {
+					if(aux.getNome().replaceAll(" ", "").equals(dados[3].split("-")[1].replaceAll(" ", ""))) {
 						col = aux;
 						break;
 					}
 				}
-				if(col == null) col = new Coligacao(dados[3].split("-")[1].split(" / "),partidos);
+				if(col == null) col = new Coligacao(dados[3].split("-")[1],partidos);
 				
 				coligacoes.add(col);
 				}
@@ -66,6 +67,7 @@ public class Eleicao {
 				if(eleito) vagas++;
 			}
 			
+			System.out.println(partidos);
 			arq.close();
 			
 			//Abrindo arquivo de relatorio
@@ -80,44 +82,36 @@ public class Eleicao {
 			Collections.sort(partidos);
 			Collections.sort(coligacoes);
 			
+			String eleitos, mais_votados, quase_eleitos, eleitos_prop;
+			eleitos = "Vereadores eleitos:\n";
+			mais_votados = "Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas\n";
+			quase_eleitos = "Teriam sido eleitos se a votação fosse majoritária, e não foram eleitos:(com sua posição no ranking de mais votados)\n";
+			eleitos_prop = "Eleitos, que se beneficiaram do sistema proporcional:(com sua posição no ranking de mais votados)\n";
+			
+			int aux_eleitos = 1, aux_mVotados = 1, aux_quase = 1, aux_prop = 1;
 			//Como o print abaixo já diz são os vereadores eleitos
-			relatorio.println("Vereadores eleitos:");
-			int aux = 1;
 			for(Candidato x : candidatos) {
 				if(x.isEleito()) {
-					relatorio.println(aux++ + " - "+ x);
+					eleitos += aux_eleitos++ + " - " + x + '\n';
 				}
-			}
-			
-			relatorio.println();
-			relatorio.println("Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas");
-			aux = 1;
-			for(Candidato x : candidatos) {
 				if(candidatos.indexOf(x) < vagas) {
-					relatorio.println(aux++ + " - "+ x);
+					mais_votados += aux_mVotados++ + " - "+ x + '\n';
 				}
-			}
-			
-			relatorio.println();
-			relatorio.println("Teriam sido eleitos se a votação fosse majoritária, e não foram eleitos:(com sua posição no ranking de mais votados)");
-			aux = 1;
-			for(Candidato x : candidatos) {
 				if(candidatos.indexOf(x) < vagas && !x.isEleito()) {
-					relatorio.println(aux + " - "+ x);
+					quase_eleitos += aux_quase + " - "+ x + '\n';
 				}
-				aux++;
-			}
-			
-			relatorio.println();
-			relatorio.println("Eleitos, que se beneficiaram do sistema proporcional:(com sua posição no ranking de mais votados)");
-			aux = 1;
-			for(Candidato x : candidatos) {
+				aux_quase++;
 				if(candidatos.indexOf(x) > vagas && x.isEleito()) {
-					relatorio.println(aux + " - "+ x);
+					eleitos_prop += aux_prop + " - "+ x + '\n';
 				}
-				aux++;
+				aux_prop++;
 			}
-			
+//			System.out.println(eleitos);
+//			System.out.println(mais_votados);
+//			System.out.println(quase_eleitos);
+//			System.out.println(eleitos_prop);
+			System.out.println(coligacoes.size() + "  " + partidos.size());
+			int aux = 1;
 			relatorio.println();
 			relatorio.println("Votação (nominal) das coligações e número de candidatos eleitos:");
 			aux = 1;
