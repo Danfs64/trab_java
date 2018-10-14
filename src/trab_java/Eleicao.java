@@ -29,6 +29,7 @@ public class Eleicao {
 				
 				//Dados do candidato
 				boolean eleito = dados[0].contains("*");
+				if(eleito) vagas++;
 				int numero = Integer.parseInt(dados[1]), votos = Integer.parseInt(dados[4].replace(".",""));
 				String nome = dados[2];
 				
@@ -66,10 +67,9 @@ public class Eleicao {
 				Candidato candidato = new Candidato(nome, numero, votos, p, eleito);
 				candidatos.add(candidato);
 				p.addCandidato(candidato);
-				if(eleito) vagas++;
 			}
 			
-			//System.out.println(partidos);
+			//Arquivo de entrada sendo fechado
 			arq.close();
 			
 			//Ordenaçao dos candidatos, partidos e coligacoes
@@ -77,6 +77,7 @@ public class Eleicao {
 			Collections.sort(partidos);
 			Collections.sort(coligacoes);
 			
+			//Strings de saida
 			String eleitos, mais_votados, quase_eleitos, eleitos_prop, colig, part;
 			eleitos = "Vereadores eleitos:\n";
 			mais_votados = "Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas\n";
@@ -85,6 +86,7 @@ public class Eleicao {
 			colig = "Votação (nominal) das coligações e número de candidatos eleitos:\n";
 			part = "Votação (nominal) dos partidos e número de candidatos eleitos:\n";
 			
+			//Alteração de todas as strings diretamente relacionadas com os candidatos
 			int aux_eleitos = 1, aux_mVotados = 1, aux_quase = 1, aux_prop = 1;
 			//Como o print abaixo já diz são os vereadores eleitos
 			for(Candidato x : candidatos) {
@@ -104,11 +106,13 @@ public class Eleicao {
 				aux_prop++;
 			}
 			
+			//Alteração da string com os dados das coligações
 			int aux = 1;
 			for(Coligacao x : coligacoes) {
 				colig += aux++ + " - " + x + "\n";
 			}
 			
+			//Alteração da string com os dados dos partidos
 			aux = 1;
 			for(Partido x : partidos) {
 				part += aux++ + " - " + x + "\n";
