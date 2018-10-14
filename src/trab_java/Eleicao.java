@@ -49,32 +49,21 @@ public class Eleicao {
 				}
 				
 				
-				if(dados[3].split("-").length > 1) {
-					Coligacao col = null;
-			
-					for(Coligacao aux : coligacoes) {
-						if(aux.getNome().replaceAll(" ", "").equals(dados[3].split("-")[1].replaceAll(" ", ""))) {
-							col = aux;
-							break;
-						}
+				Coligacao col = null;
+				String nome_Col;
+				
+				if(dados[3].split("-").length > 1) nome_Col = dados[3].split("-")[1].replaceAll(" ", "");
+				else nome_Col = dados[3].replaceAll(" ", "");
+				
+				for(Coligacao aux : coligacoes) {
+					if(aux.getNome().replaceAll(" ", "").equals(nome_Col)) {
+						col = aux;
+						break;
 					}
-					if(col == null) {
-						col = new Coligacao(dados[3].split("-")[1],partidos);
-						coligacoes.add(col);
-					}
-				}else {
-					Coligacao col = null;
-					for(Coligacao aux : coligacoes) {
-						if(aux.getNome().replaceAll(" ", "").equals(dados[3].replaceAll(" ", ""))) {
-							col = aux;
-							break;
-						}
-					}
-					if(col == null) {
-						col = new Coligacao(dados[3],partidos);
-						coligacoes.add(col);
-					}
-							
+				}
+				if(col == null) {
+					col = new Coligacao(nome_Col, partidos);
+					coligacoes.add(col);
 				}
 				
 				Candidato candidato = new Candidato(nome, numero, votos, p, eleito);
