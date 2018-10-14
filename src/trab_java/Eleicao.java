@@ -34,18 +34,6 @@ public class Eleicao {
 				String nome = dados[2];
 				
 				//Partido, coligacao e candidato sendo criados/adicionados 
-//				Partido p = null;
-//				for(Partido aux : partidos) {
-//					if(aux.getNome().replaceAll(" ", "").equals(dados[3].split("-")[0].replaceAll(" ", ""))) {
-//						p = aux;
-//						break;
-//					}
-//				}
-//				if(p == null) {
-//					p = new Partido(dados[3].split("-")[0]);
-//					partidos.add(p);
-//				}
-				
 				Coligacao col = null;
 				String nome_Col;
 				
