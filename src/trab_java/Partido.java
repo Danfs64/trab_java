@@ -9,7 +9,7 @@ public class Partido implements Comparable<Partido> {
 	int total_votos;
 	int eleitos;
 	Set<Candidato> candidatos;
-	Coligacao col = null;
+	Coligacao col;
 	
 	//Constructor
 	public Partido(String nome) {
@@ -20,6 +20,7 @@ public class Partido implements Comparable<Partido> {
 		this.total_votos = 0;
 		this.eleitos = 0;
 		this.candidatos = new HashSet<Candidato>();
+		this.col = null;
 	}
 	
 	//Getters

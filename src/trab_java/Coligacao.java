@@ -7,11 +7,11 @@ import java.util.Set;
 public class Coligacao implements Comparable<Coligacao> {
 	//Attributes
 	Set<Partido> col = new HashSet<Partido>();
-	int votos_totais = 0;
 	String nome;
 	
 	//Constructor
 	public Coligacao(String pNomes, LinkedList<Partido> partidos) {
+		
 		if(Character.isWhitespace(pNomes.charAt(0))) {
 			pNomes = pNomes.substring(1);
 		}
@@ -36,6 +36,7 @@ public class Coligacao implements Comparable<Coligacao> {
 				Partido novo = new Partido(aux[i]);
 				addPartido(novo);
 				partidos.add(novo);
+				novo.setColigacao(this);
 			}
 		}
 	}
@@ -57,6 +58,10 @@ public class Coligacao implements Comparable<Coligacao> {
 	
 	//Methods
 	
+	public int tamanho() {
+		return this.col.size();
+	}
+	
 	public void addPartido(Partido p) {
 		this.col.add(p);
 	}
@@ -72,7 +77,7 @@ public class Coligacao implements Comparable<Coligacao> {
 
 	@Override
 	public String toString() {
-		String txt = "Coligação: ";
+		String txt = "ColigaÃ§Ã£o: ";
 		
 		txt += this.getNome() + ", " + this.getVotos() + " votos, " + this.nEleitos();   
 		

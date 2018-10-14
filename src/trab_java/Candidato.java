@@ -6,7 +6,7 @@ public class Candidato implements Comparable<Candidato> {
 	int numero;
 	int votos;
 	Partido partido;
-	Coligacao col = null;
+	Coligacao col;
 	boolean eleito;
 	
 	//Constructor
@@ -47,16 +47,14 @@ public class Candidato implements Comparable<Candidato> {
 	}
 	
 	//Methods
-	
 	@Override
 	public String toString() {
 		String txt = this.nome;
 		
 		txt += " (" + this.partido.getNome() + ", " + this.votos + " votos)";
 		
-		if(this.getPartido().hasColigacao()) {
-			
-			txt += " - ColigaÁ„o: " + this.getPartido().getColigacao().getNome();
+		if(this.col.tamanho() > 1) {
+			txt += " - Coliga√ß√£o: " + this.getPartido().getColigacao().getNome();
 		}
 		
 		return txt;
