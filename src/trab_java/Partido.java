@@ -27,6 +27,10 @@ public class Partido implements Comparable<Partido> {
 		return this.nome;
 	}
 	
+	public int getEleitos() {
+		return this.eleitos;
+	}
+	
 	public int getVotos() {
 		return this.total_votos;
 	}
@@ -46,8 +50,6 @@ public class Partido implements Comparable<Partido> {
 		this.total_votos += x.getVotos();
 		
 		if (x.isEleito()) this.eleitos++;
-		
-		if (this.hasColigacao()) this.col.addVotos(x.getVotos());
 	}
 
 	public boolean hasColigacao() {

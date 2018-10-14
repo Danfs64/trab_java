@@ -42,7 +42,13 @@ public class Coligacao implements Comparable<Coligacao> {
 	
 	//Getters
 	public int getVotos() {
-		return votos_totais;
+		int x = 0;
+		
+		for(Partido y : this.col) {
+			x += y.getVotos();
+		}
+		
+		return x;
 	}
 	
 	public String getNome() {
@@ -50,9 +56,6 @@ public class Coligacao implements Comparable<Coligacao> {
 	}
 	
 	//Methods
-	public void addVotos(int n) {
-		votos_totais += n;
-	}
 	
 	public void addPartido(Partido p) {
 		this.col.add(p);
@@ -61,7 +64,7 @@ public class Coligacao implements Comparable<Coligacao> {
 	public int nEleitos() {
 		int aux = 0;
 		for(Partido x : this.col) {
-			aux += x.getVotos();
+			aux += x.getEleitos();
 		}
 		
 		return aux;
