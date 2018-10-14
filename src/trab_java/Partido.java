@@ -13,6 +13,9 @@ public class Partido implements Comparable<Partido> {
 	
 	//Constructor
 	public Partido(String nome) {
+		if(Character.isWhitespace(nome.charAt(0))) {
+			nome = nome.substring(1);
+		}		
 		this.nome = nome;
 		this.total_votos = 0;
 		this.eleitos = 0;

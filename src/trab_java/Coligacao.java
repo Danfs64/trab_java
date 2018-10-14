@@ -18,7 +18,7 @@ public class Coligacao implements Comparable<Coligacao> {
 		for(int i = 0; i < aux.length; i++) {
 			boolean ok = false;
 			for(Partido x: partidos) {
-				if(x.getNome().equals(aux[i])) {
+				if(x.getNome().replaceAll(" ", "").equals(aux[i].replaceAll(" ", ""))) {
 					addPartido(x);
 					x.setColigacao(this);
 					ok = true;
@@ -27,7 +27,11 @@ public class Coligacao implements Comparable<Coligacao> {
 			}
 			
 			if(!ok) {
+				if(Character.isWhitespace(aux[i].charAt(0))) {
+					aux[i] = aux[i].substring(1);
+				}
 				Partido novo = new Partido(aux[i]);
+				System.out.println(novo.getNome());
 				addPartido(novo);
 				partidos.add(novo);
 			}

@@ -40,25 +40,28 @@ public class Eleicao {
 				Partido p = null;
 				for(Partido aux : partidos) {
 					if(aux.getNome().replaceAll(" ", "").equals(dados[3].split("-")[0].replaceAll(" ", ""))) {
-						//System.out.println(aux.getNome().replaceAll(" ", "") + " " + dados[3].split("-")[0].replaceAll(" ", ""));
 						p = aux;
 						break;
 					}
 				}
-				if(p == null) p = new Partido(dados[3].split("-")[0]);
-				partidos.add(p);
+				if(p == null) {
+					p = new Partido(dados[3].split("-")[0]);
+					partidos.add(p);
+				}
+				
 				
 				if(dados[3].split("-").length > 1) {
-				Coligacao col = null;
-				for(Coligacao aux : coligacoes) {
-					if(aux.getNome().replaceAll(" ", "").equals(dados[3].split("-")[1].replaceAll(" ", ""))) {
-						col = aux;
-						break;
+					Coligacao col = null;
+					for(Coligacao aux : coligacoes) {
+						if(aux.getNome().replaceAll(" ", "").equals(dados[3].split("-")[1].replaceAll(" ", ""))) {
+							col = aux;
+							break;
+						}
 					}
-				}
-				if(col == null) col = new Coligacao(dados[3].split("-")[1],partidos);
-				
-				coligacoes.add(col);
+					if(col == null) {
+						col = new Coligacao(dados[3].split("-")[1],partidos);
+						coligacoes.add(col);
+					}
 				}
 				
 				Candidato candidato = new Candidato(nome, numero, votos, p, eleito);
@@ -67,7 +70,7 @@ public class Eleicao {
 				if(eleito) vagas++;
 			}
 			
-			System.out.println(partidos);
+			//System.out.println(partidos);
 			arq.close();
 			
 			//Abrindo arquivo de relatorio
@@ -111,6 +114,7 @@ public class Eleicao {
 //			System.out.println(quase_eleitos);
 //			System.out.println(eleitos_prop);
 			System.out.println(coligacoes.size() + "  " + partidos.size());
+			
 			int aux = 1;
 			relatorio.println();
 			relatorio.println("Votação (nominal) das coligações e número de candidatos eleitos:");
