@@ -6,8 +6,8 @@ import java.util.Set;
 
 public class Coligacao implements Comparable<Coligacao> {
 	//Attributes
-	Set<Partido> col = new HashSet<Partido>();
-	String nome;
+	private Set<Partido> col = new HashSet<Partido>();
+	private String nome;
 	
 	//Constructor
 	public Coligacao(String pNomes, LinkedList<Partido> partidos) {

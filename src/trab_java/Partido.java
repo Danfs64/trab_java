@@ -5,11 +5,11 @@ import java.util.Set;
 
 public class Partido implements Comparable<Partido> {
 	//Attributes
-	String nome;
-	int total_votos;
-	int eleitos;
-	Set<Candidato> candidatos;
-	Coligacao col;
+	private String nome;
+	private int total_votos;
+	private int eleitos;
+	private Set<Candidato> candidatos;
+	private Coligacao col;
 	
 	//Constructor
 	public Partido(String nome) {

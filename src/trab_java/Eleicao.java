@@ -31,7 +31,6 @@ public class Eleicao {
 				//Dados do candidato
 				boolean eleito = dados[0].contains("*");
 				if(eleito) vagas++;
-				int numero = Integer.parseInt(dados[1]);
 				int votos = Integer.parseInt(dados[4].replace(".",""));
 				String nome = dados[2];
 				
@@ -61,7 +60,7 @@ public class Eleicao {
 					}
 				}
 				
-				Candidato candidato = new Candidato(nome, numero, votos, p, eleito);
+				Candidato candidato = new Candidato(nome, votos, p, eleito);
 				candidatos.add(candidato);
 			}
 			

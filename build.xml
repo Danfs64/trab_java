@@ -4,7 +4,7 @@
     <!-- Propriedades do build. -->
     <property name="src" location="src" />
     <property name="bin" location="bin" />
-    <property name="mainClass" value="trab_java.Eleicao.class" />
+    <property name="mainClass" value="trab_java.Eleicao" />
 
     <!-- Inicialização. -->
     <target name="init" description="Inicializa as estruturas necessárias.">
