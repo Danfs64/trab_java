@@ -14,6 +14,7 @@ public class Candidato implements Comparable<Candidato> {
 		this.partido = partido;
 		this.eleito = eleito;
 		
+		//O candidato é adicionado ao seu partido no momento de sua criação
 		partido.addCandidato(this);
 	}
 		
@@ -34,8 +35,7 @@ public class Candidato implements Comparable<Candidato> {
 		txt += " (" + this.partido.getNome() + ", " + this.votos + " votos)";
 		
 		txt += " - Coligação: " + this.partido.getColigacao().getNome();
-		
-		
+				
 		return txt;
 	}
 

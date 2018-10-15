@@ -6,20 +6,36 @@ import java.util.Set;
 
 public class Coligacao implements Comparable<Coligacao> {
 	//Attributes
-	private Set<Partido> col = new HashSet<Partido>();
+	private Set<Partido> col;
 	private String nome;
+	private int votos;
+	private int eleitos;
 	
 	//Constructor
 	public Coligacao(String pNomes, LinkedList<Partido> partidos) {
 		
+		//Inicializa os valores base
+		this.votos = 0;
+		this.eleitos = 0;
+		this.col = new HashSet<Partido>();
+		
+		//Remove o whitespace do início do nome dos partidos, caso haja
 		if(Character.isWhitespace(pNomes.charAt(0))) {
 			pNomes = pNomes.substring(1);
 		}
+		
+		//O nome da coligação é o nome dos partidos que a compõe
 		this.nome = pNomes;
+		
+		//Isola cada nome da string de nomes de partidos
 		String[] aux = pNomes.split("/");
 		
+		//Varre todos os nomes dos partidos dessa coligação
 		for(int i = 0; i < aux.length; i++) {
+			//flag para saber se precisa criar o partido ou não
 			boolean ok = false;
+			
+			//Varre todos os partidos criados, e ao encontrar faz a ligação entre ele e a coligação
 			for(Partido x: partidos) {
 				if(x.getNome().replaceAll(" ", "").equals(aux[i].replaceAll(" ", ""))) {
 					addPartido(x);
@@ -28,8 +44,9 @@ public class Coligacao implements Comparable<Coligacao> {
 					break;
 				}
 			}
-			
+			//Caso não tenha achado o partido, cria o partido e faz a ligação
 			if(!ok) {
+				//Corrige o nome, removendo o whitespace do início, caso haja
 				if(Character.isWhitespace(aux[i].charAt(0))) {
 					aux[i] = aux[i].substring(1);
 				}
@@ -43,20 +60,25 @@ public class Coligacao implements Comparable<Coligacao> {
 	
 	//Getters
 	public int getVotos() {
-		int x = 0;
-		
-		for(Partido y : this.col) {
-			x += y.getVotos();
-		}
-		
-		return x;
+		return votos;
 	}
 	
 	public String getNome() {
 		return this.nome;
 	}
 	
+	public int nEleitos() {
+		return eleitos;
+	}
+
 	//Methods
+	public void addVotos(int n) {
+		this.votos += n;
+	}
+	
+	public void addEleito() {
+		eleitos++;
+	}
 	
 	public int tamanho() {
 		return this.col.size();
@@ -66,15 +88,6 @@ public class Coligacao implements Comparable<Coligacao> {
 		this.col.add(p);
 	}
 	
-	public int nEleitos() {
-		int aux = 0;
-		for(Partido x : this.col) {
-			aux += x.getEleitos();
-		}
-		
-		return aux;
-	}
-
 	@Override
 	public String toString() {
 		String txt = "Coligação: ";

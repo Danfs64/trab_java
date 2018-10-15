@@ -15,7 +15,7 @@ public class Eleicao {
 			BufferedReader arq = new BufferedReader(new InputStreamReader
 								(new FileInputStream(args[0]), args[1]));
 			
-			//Cria os agrupamentos necessarios
+			//Inicializa os agrupamentos necessarios e a quantidade de vagas
 			LinkedList<Candidato> candidatos = new LinkedList<Candidato>();
 			LinkedList<Partido> partidos = new LinkedList<Partido>();
 			LinkedList<Coligacao> coligacoes = new LinkedList<Coligacao>();
@@ -24,8 +24,9 @@ public class Eleicao {
 			//Pula a primeira linha
 			arq.readLine();
 			
+			//Lê o arquivo inteiramente
 			for(String linha = arq.readLine(); linha != null; linha = arq.readLine()) {
-				//Strings obtidas a partir da separacao da linha
+				//Strings obtidas a partir da separacao das colunas
 				String[] dados = linha.split(";");
 				
 				//Dados do candidato
@@ -38,20 +39,24 @@ public class Eleicao {
 				Coligacao col = null;
 				String nome_Col;
 				
+				//Identifica se a coligação a ser criada tem mais do que um partido
 				if(dados[3].split("-").length > 1) nome_Col = dados[3].split("-")[1];
 				else nome_Col = dados[3];
-
+				
+				//Confere se já existe uma coligação com esses partidos
 				for(Coligacao aux : coligacoes) {
 					if(aux.getNome().replaceAll(" ", "").equals(nome_Col.replaceAll(" ",""))) {
 						col = aux;
 						break;
 					}
 				}
+				//Se não for encontrada uma coligação equivalente, cria a coligação (que por sua vez, criará os partidos)
 				if(col == null) {
 					col = new Coligacao(nome_Col, partidos);
 					coligacoes.add(col);
 				}
 				
+				//Busca o partido desejado
 				Partido p = null;
 				for(Partido aux : partidos) {
 					if(aux.getNome().replaceAll(" ", "").equals(dados[3].split("-")[0].replaceAll(" ", ""))) {
@@ -60,6 +65,7 @@ public class Eleicao {
 					}
 				}
 				
+				//Cria o candidato e adiciona ele ao seu partido
 				Candidato candidato = new Candidato(nome, votos, p, eleito);
 				candidatos.add(candidato);
 			}
@@ -72,7 +78,7 @@ public class Eleicao {
 			Collections.sort(partidos);
 			Collections.sort(coligacoes);
 			
-			//Strings de saida
+			//Inicia as strings de saida
 			String eleitos, mais_votados, quase_eleitos, eleitos_prop, colig, part;
 			eleitos = "Vereadores eleitos:\n";
 			mais_votados = "Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas\n";
@@ -81,9 +87,10 @@ public class Eleicao {
 			colig = "Votação (nominal) das coligações e número de candidatos eleitos:\n";
 			part = "Votação (nominal) dos partidos e número de candidatos eleitos:\n";
 			
-			//Alteração de todas as strings diretamente relacionadas com os candidatos
+			//Contadores utilizados na geração das strings de saída
 			int aux_eleitos = 1, aux_mVotados = 1, aux_quase = 1, aux_prop = 1, total_votos = 0;
-			//Como o print abaixo já diz são os vereadores eleitos
+			
+			//Varre o conjunto de candidatos, construindo as strings de saída
 			for(Candidato x : candidatos) {
 				if(x.isEleito()) {
 					eleitos += aux_eleitos++ + " - " + x + '\n';
@@ -102,19 +109,19 @@ public class Eleicao {
 				total_votos += x.getVotos();
 			}
 			
-			//Alteração da string com os dados das coligações
+			//Atualização da string com os dados das coligações
 			int aux = 1;
 			for(Coligacao x : coligacoes) {
 				colig += aux++ + " - " + x + "\n";
 			}
 			
-			//Alteração da string com os dados dos partidos
+			//Atualização da string com os dados dos partidos
 			aux = 1;
 			for(Partido x : partidos) {
 				part += aux++ + " - " + x + "\n";
 			}
 			
-			//Saida
+			//Gera a saída
 			System.out.println("Numero de vagas: "+ vagas);
 			System.out.println();
 			System.out.println(eleitos);

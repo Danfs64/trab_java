@@ -13,9 +13,11 @@ public class Partido implements Comparable<Partido> {
 	
 	//Constructor
 	public Partido(String nome) {
+		//Remove um whitespace do primeiro caracter do nome, caso haja
 		if(Character.isWhitespace(nome.charAt(0))) {
 			nome = nome.substring(1);
-		}		
+		}
+		
 		this.nome = nome;
 		this.total_votos = 0;
 		this.eleitos = 0;
@@ -37,24 +39,27 @@ public class Partido implements Comparable<Partido> {
 	}
 	
 	public Coligacao getColigacao() {
-		return col;
+		return this.col;
 	}
 	
 	//Setters
 	public void setColigacao(Coligacao c) {
-		col = c;
+		this.col = c;
 	}
 		
 	//Methods
 	public void addCandidato(Candidato x) {
+		//Adiciona um candidato 'x' ao partido, e incrementa as contagens de votos
 		this.candidatos.add(x);
 		this.total_votos += x.getVotos();
+		this.col.addVotos(x.getVotos());
 		
-		if (x.isEleito()) this.eleitos++;
+		//Se esse candidato tiver sido eleito, incrementa o nº de eleitos do partido e da coligação
+		if (x.isEleito()) {this.eleitos++; this.col.addEleito();}
 	}
 
 	public boolean hasColigacao() {
-		return col!=null;
+		return this.col!=null;
 	}
 	
 	@Override
