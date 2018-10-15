@@ -3,10 +3,8 @@ package trab_java;
 public class Candidato implements Comparable<Candidato> {
 	//Attributes
 	String nome;
-	int numero;
-	int votos;
+	int numero, votos;
 	Partido partido;
-	Coligacao col;
 	boolean eleito;
 	
 	//Constructor
@@ -15,31 +13,14 @@ public class Candidato implements Comparable<Candidato> {
 		this.numero = numero;
 		this.votos = votos;
 		this.partido = partido;
-		this.col = partido.getColigacao();
 		this.eleito = eleito;
 		
 		partido.addCandidato(this);
 	}
 		
 	//Getters
-	public String getNome() {
-		return this.nome;
-	}
-	
 	public int getVotos() {
 		return this.votos;
-	}
-	
-	public int getNumero() {
-		return this.numero;
-	}
-	
-	public Partido getPartido() {
-		return this.partido;
-	}
-	
-	public Coligacao getColigacao() {
-		return this.col;
 	}
 	
 	public boolean isEleito() {
@@ -53,9 +34,8 @@ public class Candidato implements Comparable<Candidato> {
 		
 		txt += " (" + this.partido.getNome() + ", " + this.votos + " votos)";
 		
-		if(this.col.tamanho() > 1) {
-			txt += " - Coligação: " + this.getPartido().getColigacao().getNome();
-		}
+		txt += " - Coligação: " + this.partido.getColigacao().getNome();
+		
 		
 		return txt;
 	}

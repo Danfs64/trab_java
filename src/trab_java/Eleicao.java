@@ -13,7 +13,7 @@ public class Eleicao {
 		try {
 			//Leitor do arquivo
 			BufferedReader arq = new BufferedReader(new InputStreamReader
-								(new FileInputStream(args[0]), "UTF-8"));
+								(new FileInputStream(args[0]), args[1]));
 			
 			//Cria os agrupamentos necessarios
 			LinkedList<Candidato> candidatos = new LinkedList<Candidato>();
@@ -39,11 +39,11 @@ public class Eleicao {
 				Coligacao col = null;
 				String nome_Col;
 				
-				if(dados[3].split("-").length > 1) nome_Col = dados[3].split("-")[1].replaceAll(" ", "");
-				else nome_Col = dados[3].replaceAll(" ", "");
+				if(dados[3].split("-").length > 1) nome_Col = dados[3].split("-")[1];
+				else nome_Col = dados[3];
 
 				for(Coligacao aux : coligacoes) {
-					if(aux.getNome().replaceAll(" ", "").equals(nome_Col)) {
+					if(aux.getNome().replaceAll(" ", "").equals(nome_Col.replaceAll(" ",""))) {
 						col = aux;
 						break;
 					}
@@ -83,7 +83,7 @@ public class Eleicao {
 			part = "Votação (nominal) dos partidos e número de candidatos eleitos:\n";
 			
 			//Alteração de todas as strings diretamente relacionadas com os candidatos
-			int aux_eleitos = 1, aux_mVotados = 1, aux_quase = 1, aux_prop = 1;
+			int aux_eleitos = 1, aux_mVotados = 1, aux_quase = 1, aux_prop = 1, total_votos = 0;
 			//Como o print abaixo já diz são os vereadores eleitos
 			for(Candidato x : candidatos) {
 				if(x.isEleito()) {
@@ -100,6 +100,7 @@ public class Eleicao {
 					eleitos_prop += aux_prop + " - "+ x + '\n';
 				}
 				aux_prop++;
+				total_votos += x.getVotos();
 			}
 			
 			//Alteração da string com os dados das coligações
@@ -123,6 +124,7 @@ public class Eleicao {
 			System.out.println(eleitos_prop);
 			System.out.println(colig);
 			System.out.println(part);
+			System.out.println("Total de votos nominais: "+total_votos);
 			
 		}
 		catch(IOException e) {
