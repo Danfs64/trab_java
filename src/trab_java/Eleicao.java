@@ -81,7 +81,7 @@ public class Eleicao {
 			//Inicia as strings de saida
 			String eleitos, mais_votados, quase_eleitos, eleitos_prop, colig, part;
 			eleitos = "Vereadores eleitos:\n";
-			mais_votados = "Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas\n";
+			mais_votados = "Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):\n";
 			quase_eleitos = "Teriam sido eleitos se a votação fosse majoritária, e não foram eleitos:\n(com sua posição no ranking de mais votados)\n";
 			eleitos_prop = "Eleitos, que se beneficiaram do sistema proporcional:\n(com sua posição no ranking de mais votados)\n";
 			colig = "Votação (nominal) das coligações e número de candidatos eleitos:\n";
@@ -102,7 +102,7 @@ public class Eleicao {
 					quase_eleitos += aux_quase + " - "+ x + '\n';
 				}
 				aux_quase++;
-				if(candidatos.indexOf(x) > vagas && x.isEleito()) {
+				if(candidatos.indexOf(x) >= vagas && x.isEleito()) {
 					eleitos_prop += aux_prop + " - "+ x + '\n';
 				}
 				aux_prop++;
@@ -118,11 +118,13 @@ public class Eleicao {
 			//Atualização da string com os dados dos partidos
 			aux = 1;
 			for(Partido x : partidos) {
-				part += aux++ + " - " + x + "\n";
+				if(x.qtddCandidatos() > 0) {
+					part += aux++ + " - " + x + "\n";
+				}
 			}
 			
 			//Gera a saída
-			System.out.println("Numero de vagas: "+ vagas);
+			System.out.println("Número de vagas: "+ vagas);
 			System.out.println();
 			System.out.println(eleitos);
 			System.out.println(mais_votados);

@@ -34,7 +34,7 @@ public class Candidato implements Comparable<Candidato> {
 		
 		txt += " (" + this.partido.getNome() + ", " + this.votos + " votos)";
 		
-		txt += " - Coligação: " + this.partido.getColigacao().getNome();
+		if( this.partido.getColigacao().tamanho() > 1) txt += " - Coligação: " + this.partido.getColigacao().getNome();
 				
 		return txt;
 	}

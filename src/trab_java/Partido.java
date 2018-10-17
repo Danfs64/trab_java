@@ -62,6 +62,10 @@ public class Partido implements Comparable<Partido> {
 		return this.col!=null;
 	}
 	
+	public int qtddCandidatos() {
+		return this.candidatos.size();
+	}
+
 	@Override
 	public String toString() {
 		String txt = this.nome;
